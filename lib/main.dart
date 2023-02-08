@@ -25,9 +25,15 @@ class DiceApp extends StatefulWidget {
 }
 
 class _DiceAppState extends State<DiceApp> {
-  int leftdice = 1;
+  int leftdice = 1, rightdice = 1;
+
   @override
   Widget build(BuildContext context) {
+    void changedice() {
+      leftdice = Random().nextInt(6) + 1;
+      rightdice = Random().nextInt(6) + 1;
+    }
+
     return Center(
       child: Row(
         children: <Widget>[
@@ -35,8 +41,9 @@ class _DiceAppState extends State<DiceApp> {
             flex: 1,
             child: TextButton(
               onPressed: () {
-                Random rand = new Random();
-                leftdice = rand.nextInt(5) + 1;
+                setState(() {
+                  changedice();
+                });
               },
               child: Image.asset('images/dice$leftdice.png'),
             ),
@@ -45,9 +52,11 @@ class _DiceAppState extends State<DiceApp> {
             flex: 1,
             child: TextButton(
               onPressed: () {
-                print('you just pressed the right dice');
+                setState(() {
+                  changedice();
+                });
               },
-              child: Image.asset('images/dice2.png'),
+              child: Image.asset('images/dice$rightdice.png'),
             ),
           ),
         ],
